@@ -58,7 +58,7 @@ function App() {
       </form>
       {fullName && (
         <div className="full-name">
-          FULL NAME: {fullName}
+          Full Name: {fullName}
         </div>
       )}
     </div>
