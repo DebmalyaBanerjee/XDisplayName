@@ -7,19 +7,29 @@ function App() {
   const [fullName, setFullName] = useState('');
   const [error, setError] = useState('');
 
+  const handleInputChange = (e, setter) => {
+    const value = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(value)) {
+      setter(value);
+      setError('');
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!firstName.trim() || !lastName.trim()) {
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+    if (!trimmedFirstName || !trimmedLastName) {
       setError('Please fill out this field.');
       return;
     }
     setError('');
-    setFullName(`${firstName} ${lastName}`);
+    setFullName(`${trimmedFirstName} ${trimmedLastName}`);
   };
 
   return (
     <div className="App">
-      <h1>FULL NAME DISPLAY</h1>
+      <h1>Full Name Display</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>
@@ -27,10 +37,7 @@ function App() {
             <input
               type="text"
               value={firstName}
-              onChange={(e) => {
-                setFirstName(e.target.value);
-                setError('');
-              }}
+              onChange={(e) => handleInputChange(e, setFirstName)}
               required
             />
           </label>
@@ -41,10 +48,7 @@ function App() {
             <input
               type="text"
               value={lastName}
-              onChange={(e) => {
-                setLastName(e.target.value);
-                setError('');
-              }}
+              onChange={(e) => handleInputChange(e, setLastName)}
               required
             />
           </label>
