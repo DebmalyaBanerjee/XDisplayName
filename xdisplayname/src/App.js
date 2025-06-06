@@ -7,15 +7,11 @@ function App() {
   const [fullName, setFullName] = useState('');
   const [error, setError] = useState('');
 
-  const handleInputChange = (e, setter, fieldName) => {
+  const handleInputChange = (e, setter) => {
     const value = e.target.value;
-    if (/^[A-Za-z\s]*$/.test(value)) {
-      setter(value);
-      if (error.includes('Only letters are allowed')) {
-        setError('');
-      }
-    } else {
-      setError(`Only letters are allowed in ${fieldName}.`);
+    setter(value);
+    if (error.includes('Invalid characters removed')) {
+      setError('');
     }
   };
 
@@ -25,10 +21,6 @@ function App() {
     const trimmedLastName = lastName.trim();
     if (!trimmedFirstName || !trimmedLastName) {
       setError('Please fill out this field.');
-      return;
-    }
-    if (!/^[A-Za-z\s]*$/.test(trimmedFirstName) || !/^[A-Za-z\s]*$/.test(trimmedLastName)) {
-      setError('Only letters are allowed in names.');
       return;
     }
     setError('');
@@ -45,7 +37,7 @@ function App() {
             <input
               type="text"
               value={firstName}
-              onChange={(e) => handleInputChange(e, setFirstName, 'First Name')}
+              onChange={(e) => handleInputChange(e, setFirstName)}
               required
             />
           </label>
@@ -56,7 +48,7 @@ function App() {
             <input
               type="text"
               value={lastName}
-              onChange={(e) => handleInputChange(e, setLastName, 'Last Name')}
+              onChange={(e) => handleInputChange(e, setLastName)}
               required
             />
           </label>
